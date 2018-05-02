@@ -1,0 +1,88 @@
+
+ Full texts	
+Employee
+FirstName
+LastName
+Position
+YearJoined
+YearLeft
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+1
+Geoff
+Ramsey
+Founder
+2008
+NULL
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+2
+Jack
+Patillo
+Founder
+2008
+NULL
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+3
+Gavin
+Free
+Creative Director
+2012
+NULL
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+4
+Ray
+Narvaez Jr.
+Host
+2012
+2015
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+5
+Ryan
+Haywood
+Editor
+2012
+NULL
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+6
+Michael
+Jones
+Editor
+2011
+NULL
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+7
+Jeremy
+Dooley
+Editor
+2015
+NULL
+
+Edit Edit
+ Copy Copy
+ Delete Delete
+8
+Lindsay
+Jones
+Manager
+2017
+NULL
