@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Member</title>
+</head>
+<body>
+<h1>Add Funhaus Member</h1>
+<form action="Insert.php" method="post">
+    <p>First Name <br />
+    <input type="text" name="FirstName" value="" placeholder="First Name" maxlength="255" size="80"></p>
+    
+    <p>Last Name <br />
+    <input type="text" name="LastName" value="" placeholder="Last Name" maxlength="255" size="80"></p>
+    
+    
+    <p>Year Joined<br />
+        <select name="YearJoined">
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="SelectYear" selected>Select Year</option>
+        </select>
+    </p>
+
+  <p>Year Left<br />
+        <select name="YearLeft">
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="SelectYear" selected>Select Year</option>
+        </select>
+    </p>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

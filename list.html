@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html lang="en">  
+<head>
+<title>Table Prototype</title>
+    <style>
+        #Funtable, #AHtable, th, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 900px;
+            overflow: hidden;
+        }
+        button{
+            background-color: #ff7e2e;
+            border: none;
+            color: black;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
+<script src="http://code.jquery.com/jquery-1.5.js"></script>
+<script>
+
+    var DeleteMember;
+    var DeleteMemberFun;
+    var Update;
+    var FunNum = 0;
+    var AHNum = 0;
+    var UpdateAH;
+$(document).ready(function(){ 
+    
+
+    
+      $.get('listFun.php', function(data) {
+            $.ajax({
+              type: "GET",
+              url: "listFun.php",
+
+             success:function(data) {
+                 var i = 0;
+                 $('#Funtable').html("<tr><th>Firstname</th><th>Lastname</th><th>Year Joined</th><th>Year Left</th><th>Delete Member?</th><th>Update?</th></tr>");
+                 var dat = $.parseJSON(data);
+                    while(i < dat.length){
+                       $('#Funtable').append("<tr><th>" + dat[i].key1 +"</th><th>"+dat[i].key2+"</th><th>"+dat[i].key3+"</th><th>"+dat[i].key4+"</th><th><button value='"+dat[i].key5+"' onclick='DeleteMemberFun(this.value)'>Delete?</button></th><th><select class='FunForm' name='Options' onchange='Update("+FunNum+")'> <option></option><option value='FirstName "+dat[i].key5+"'>FirstName</option><option value='LastName "+dat[i].key5+"'>LastName</option><option value='YearJoined "+dat[i].key5+"'>Year Joined</option><option value='YearLeft "+dat[i].key5+"'>Year Left</option></select><br></th></tr>");
+                        i++;
+                        FunNum++;
+                        console.log(FunNum);
+                    }
+                 
+                    },
+                 error: function(data) {
+                    $('#Funtable').html("Failed to Connect");
+                },
+                    })   
+                });
+          $.get('listAH.php', function(data) {
+            $.ajax({
+              type: "GET",
+              url: "listAH.php",
+
+             success:function(data) {
+                 var i = 0;
+                 $('#AHtable').html("<tr><th>Firstname</th><th>Lastname</th><th>Year Joined</th><th>Year Left</th><th>Delete Member?</th><th>Update?</th></tr>");
+                 var dat = $.parseJSON(data);
+                    while(i < dat.length){
+                       $('#AHtable').append("<tr><th>" + dat[i].key1 +"</th><th>"+dat[i].key2+"</th><th>"+dat[i].key3+"</th><th>"+dat[i].key4+"</th><th><button value='"+dat[i].key5+"' onclick='DeleteMember(this.value)'>Delete?</button></th><th><select name='Options'class='AHForm' onchange='UpdateAH("+AHNum+")';><option></option><option value='FirstName "+dat[i].key5+"'>FirstName</option><option value='LastName "+dat[i].key5+"'>LastName</option><option value='YearJoined "+dat[i].key5+"'>Year Joined</option><option value='YearLeft "+dat[i].key5+"'>Year Left</option></select><br></th></tr>");
+                        i++;
+                        AHNum++;
+                        console.log(AHNum);
+                    }
+                 
+                    },
+                 error: function(data) {
+                    $('#Funtable').html("Failed to Connect");
+                },
+                    })   
+                });
+    
+  DeleteMember = function(numb){
+    var formData = {
+        'id' : numb
+    };
+    
+            $.ajax({
+                url: "test.php",
+                type: "GET",
+                data: formData,
+                
+             success:function(data) {
+                    location.reload();
+                    },
+                 
+                 error: function(data) {
+                    alert("Failed to Connect");
+                },
+                    })   
+              
+      return false;
+    }
+  
+    DeleteMemberFun = function(num){
+    var formDat = {
+        'id' : num
+    };
+            $.ajax({
+                url: "test2.php",
+                type: "GET",
+                data: formDat,
+                
+             success:function(data) {
+               
+                    location.reload();
+                    },
+                 
+                 error: function(data) {
+                    alert("Failed to Connect");
+                },
+                    })   
+              
+      return false;
+    }
+    
+  Update = function(pos){
+      var update;
+      var x = document.getElementsByClassName("FunForm");
+      var parsed = x[pos].value.split(" ");
+      var option = parsed[0];
+      var ID = parsed[1];
+      if(option == "FirstName"){
+          var fname = prompt("Please enter new name");
+          while(fname == "" || fname == null){
+           var fname = prompt("Everyone needs a name. Please enter new name");   
+          }
+      }
+        else if(option == "LastName"){
+          var lname = prompt("Please enter new name");
+          while(lname == null || lname == ""){
+           var lname = prompt("Everyone needs a name. Please enter new name");   
+          }
+        }
+         else if(option == "YearJoined"){
+          var YJ = prompt("What Year did they join? Select Year between 2015 to 2018");
+          while(YJ > 2018 || YJ < 2015){
+           var YJ = prompt("What Year did they join? Select Year between 2015 to 2018");
+          }
+         }
+         else if(option == "YearLeft"){
+          var YL = prompt("What Year did they leave? Select Year between 2015 to 2018");
+            if(YL == null || YL == ""){
+                  return;
+              }
+            else{
+                while(YL > 2018 || YL < 2015){
+                    var YL = prompt("What Year did they leave? Select Year between 2015 to 2018");
+//                    if(YL == null || YL == ""){
+//                    break;
+//                    }
+                    }
+                }
+         }
+        else{
+            return;
+        }
+      if(fname){
+        update = fname;
+      }
+      else if(lname){
+         update = lname; 
+      }
+       else if(YJ){
+          update = YJ;
+      }
+       else if(YL){
+          update = YL;
+      }
+      
+      
+         var UpDat = {
+        'ID' : ID,
+        'Option' : option,
+        'Update' : update,
+    };
+      
+
+            $.ajax({
+                url: "updateFun.php",
+                type: "POST",
+                data: UpDat,
+                
+             success:function(data) {
+                    alert(data);
+                    location.reload();
+                    },
+                 
+                 error: function(data) {
+                    alert("Failed to Connect");
+                },
+                    }) 
+         
+          
+      }
+  
+UpdateAH = function(posit){
+      var update;
+      var x = document.getElementsByClassName("AHForm");
+      var parsed = x[posit].value.split(" ");
+      var option = parsed[0];
+      var ID = parsed[1];
+      if(option == "FirstName"){
+          var fname = prompt("Please enter new name");
+          while(fname == "" || fname == null){
+           var fname = prompt("Everyone needs a name. Please enter new name");   
+          }
+      }
+        else if(option == "LastName"){
+          var lname = prompt("Please enter new name");
+          while(lname == null || lname == ""){
+           var lname = prompt("Everyone needs a name. Please enter new name");   
+          }
+        }
+         else if(option == "YearJoined"){
+          var YJ = prompt("What Year did they join? Select Year between 2008 to 2018");
+          while(YJ > 2018 || YJ < 2008){
+           var YJ = prompt("What Year did they join? Select Year between 2008 to 2018");
+          }
+         }
+         else if(option == "YearLeft"){
+          var YL = prompt("What Year did they leave? Select Year between 2008 to 2018");
+            if(YL == null || YL == ""){
+                  return;
+              }
+            else{
+                while(YL > 2018 || YL < 2008){
+                    var YL = prompt("What Year did they leave? Select Year between 2008 to 2018");
+//                    if(YL == null || YL == ""){
+//                    break;
+//                    }
+                    }
+                }
+         }
+        else{
+            return;
+        }
+      if(fname){
+        update = fname;
+      }
+      else if(lname){
+         update = lname; 
+      }
+       else if(YJ){
+          update = YJ;
+      }
+       else if(YL){
+          update = YL;
+      }
+      
+      
+         var UpDad = {
+        'ID' : ID,
+        'Option' : option,
+        'Update' : update,
+    };
+      
+
+            $.ajax({
+                url: "updateAH.php",
+                type: "POST",
+                data: UpDad,
+                
+             success:function(data) {
+                    alert(data);
+                    location.reload();
+                    },
+                 
+                 error: function(data) {
+                    alert("Failed to Connect");
+                },
+                    }) 
+         
+          
+      }
+        
+   
+});
+    
+
+    
+</script>
+</head>
+<body>
+<h1>Funhaus</h1>
+        <div>
+            <a href="/DatabaseFinalProject/funhausform.html"> <button type="button">Add Funhaus Member</button></a>
+        </div>
+<table id="Funtable">
+    
+</table>
+<br>
+<br>
+<h1>Achievement Hunter</h1>
+    <div>
+            <a href="/DatabaseFinalProject/hunterform.html"><button type="button">Add Achievement Hunter Member</button></a>
+        </div>
+<table id="AHtable">
+</table>
+</body>
+</html>                    
